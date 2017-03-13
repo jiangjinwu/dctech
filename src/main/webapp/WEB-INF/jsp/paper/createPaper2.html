@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+    layout:decorator="fragments/adminLayout">
+
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></meta>
+<title>Insert title here</title>
+</head>
+<body>
+<div layout:fragment="content" style="width:96%;margin-left:auto;margin-right:auto;">
+
+<script type="text/javascript">
+function addQuestionAndOptions(){
+	
+	alert($("form").serialize());
+	
+	var arrayObj = {
+			'optioins.optionName':['a','b','c','d'],
+			"question.questionName":'question name'
+	};
+	
+	 
+	$.ajax({
+		type:'POST',
+		//contentType : "application/x-www-form-urlencoded",
+		url:'addQuestionAndOptions.json',
+		data:$("form").serialize(),
+		success:function(data){
+			
+		}
+	});
+}
+
+
+</script>
+<form action="save.html">
+<input type="hidden" name="paperId"></input>
+<input name="paperName"></input>
+<input name="paperPrice"></input>
+<input type="submit"></input>
+
+<div id="preview">
+
+</div>
+<div>
+<dl>
+<dd>题干：<textarea rows="" cols="" name="questionName"></textarea></dd>
+<dd>选项1：<input name="optionName"></input></dd>
+<dd>选项2：<input name="optionName"></input></dd>
+<dd>选项3：<input name="question.optioins.optionName"></input></dd>
+<dd>选项4：<input name="explain.note"></input></dd>
+</dl>
+
+</div>
+<input type="button" value="保存" onclick="addQuestionAndOptions()" />
+<input type="button" value="下一题" onclick="" />
+
+</form>
+
+</div>
+</body>
+</html>
