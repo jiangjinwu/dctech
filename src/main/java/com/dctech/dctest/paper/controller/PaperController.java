@@ -167,8 +167,9 @@ public class PaperController {
 	}
 	
 	@RequestMapping("editQuOp.html")
-	public String editQuOp(){
+	public String editQuOp(String paperId,Model model){
 		
+		model.addAttribute("paperId", paperId);
 		return "paper/editQuOp";
 	}
 	

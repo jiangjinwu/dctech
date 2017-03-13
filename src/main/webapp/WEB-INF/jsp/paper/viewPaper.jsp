@@ -1,5 +1,5 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
@@ -41,14 +41,18 @@
 					  </div>
 		
 		              <ol >
-		              <span th:each="q: ${questionList}">
-		             	   <li  th:text="${q.questionName}">  </li>
+${questionList}
+			          <c:forEach var="q" items="${questionList}">
+			          
+			           <li> ${q.questionName} </li>
 			               <ol  >
-			               <span th:each="o:${q.questionOptions}">
-			              	 	<li  th:text="${o.optionName}">  </li>
-			              	 	</span>
+			                 
+			                   <c:forEach var="o" items="${q.questionOptions}">
+			              	 	<li  th:text=""> ${o.optionName} </li>
+			              	 	</c:forEach>
 			               </ol>
-			               </span>
+			          
+			          </c:forEach>
 		               </ol>
 					 </form>
 				</div>
