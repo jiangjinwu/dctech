@@ -71,4 +71,10 @@ public class BuyController {
 		
 		return cartList;
 	}
+	
+	@RequestMapping("paytest")
+	public String payTest(){
+		
+		return "paytest";
+	}
 }

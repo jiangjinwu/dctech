@@ -78,7 +78,10 @@ public class UserController
 	        
 	        User  user = userService.findUserByEmailOrPhone(username);
 	        
-	        if(user ==null ||!StandardPasswordEncoder.encode(password).equals(user.getPassword())){
+	        
+	        
+	        
+	        if(user ==null ||!StandardPasswordEncoder.matches(password,user.getPassword())){
 	        	 return new JsonHolder().setSuccess(false).setMsg("");
 	        }
 	       
