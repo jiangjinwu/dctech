@@ -94,6 +94,7 @@
 <h2>Welcome ${currentUser.name } </h2>
 <h3>Email: <sec:authentication property="name"/></h3>
 <h3>
+<a href="/buy/paytest">paytest</a>
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<a href="${rootUrl}admin">Administration</a>
 	</sec:authorize>
