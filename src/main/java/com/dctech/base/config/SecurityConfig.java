@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	  public void configure(WebSecurity web) throws Exception {
 	    web
 	      .ignoring()
-	         .antMatchers("/resources/**").antMatchers("/common/*").antMatchers("/**/*.txt"); // #3
+	         .antMatchers("/resources/**").antMatchers("/common/*"); // #3
 	  }
 
 	  @Override
