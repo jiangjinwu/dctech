@@ -39,7 +39,7 @@ import com.dctech.dctest.paper.service.PaperService;
 
 
 @Controller()
-/*@RequestMapping("paper/")*/
+@RequestMapping("paper/")
 public class PaperController {
 
  
@@ -163,7 +163,7 @@ public class PaperController {
 		
 		paperRepository.save(paper);
 		/*baseRepository.save(paper);*/
-		return "paper/list";
+		return "redirect:list";
 	}
 	
 	@RequestMapping("editQuOp.html")

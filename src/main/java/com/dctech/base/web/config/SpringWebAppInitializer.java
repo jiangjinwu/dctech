@@ -6,6 +6,7 @@ package com.dctech.base.web.config;
 import javax.servlet.Filter;
 
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -39,9 +40,15 @@ public class SpringWebAppInitializer extends AbstractAnnotationConfigDispatcherS
 
 	@Override
     protected Filter[] getServletFilters() {
+		
+		
+		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+		characterEncodingFilter.setEncoding("UTF-8");
+		characterEncodingFilter.setForceEncoding(true);
        return new Filter[]{ 
     		   new DelegatingFilterProxy("springSecurityFilterChain"),
-    		   new OpenEntityManagerInViewFilter()};
+    		   new OpenEntityManagerInViewFilter(),
+    		   characterEncodingFilter};
     } 
 
 

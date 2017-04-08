@@ -438,7 +438,6 @@ webpackJsonp([0], {
                             //window.location.href = n + "://" + t.data.domain + "/auth/api/authorization?auth_token=" + t.data.auth_token + "&callback=" + encodeURIComponent(SOHUZ.page.callback) + "&site_id=" + SOHUZ.page.site_id
                         },
                         errCb: function(t) {
-                        	alert("xx");
                             try {
                                 var n = JSON.parse(t.responseText);
                                 20412 === n.code ? (a.a.toast("图片验证码错误"), s(".js-picvcode").trigger("click")) : a.a.toast("您的账号或密码错误")
@@ -647,7 +646,7 @@ webpackJsonp([0], {
                 s(".js-send-mobile-code").on("click",
                 function(n) {
                 	console.info(t);
-                    return !t ? void a.a.alert("手机已注册", {
+                    return t ? void a.a.alert("手机已注册", {
                         cancel: "知道了",
                         confirm: "去登录",
                         confirmCb: function() {

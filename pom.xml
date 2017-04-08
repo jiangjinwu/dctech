@@ -233,6 +233,13 @@
             <scope>provided</scope>
         </dependency>
         
+         <dependency>
+            <groupId>com.cloopen</groupId>
+            <artifactId>rest</artifactId>
+            <version>2.7r</version>
+            <scope>provided</scope>
+        </dependency>
+        
 	</dependencies>
 
 	<dependencyManagement>
