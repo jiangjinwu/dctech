@@ -23,8 +23,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
  */
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true) 
-//@ImportResource("classpath:applicationContext-security.xml")
+////@EnableGlobalMethodSecurity(prePostEnabled = true) 
+////@ImportResource("classpath:applicationContext-security.xml")
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
 	@Autowired
@@ -61,7 +61,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	  public void configure(WebSecurity web) throws Exception {
 	    web
 	      .ignoring()
-	         .antMatchers("/resources/**").antMatchers("/common/*"); // #3
+	         .antMatchers("/resources/**")
+	         .antMatchers("/common/*")
+	         .antMatchers("/welcome**").antMatchers("/gettoken**"); // #3
 	  }
 
 	  @Override
@@ -69,12 +71,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	    http
 	    .csrf().disable()
 	    .authorizeRequests()
-	        .antMatchers("/login","/login/form**","/register","/logout","/passport/main/api/*").permitAll() // #4
-	        .antMatchers("/admin","/admin/**").hasRole("ADMIN") // #6
-	        .anyRequest().authenticated() // 7
+	        .antMatchers("/login","/login/form**","/register","/logout","/passport/main/api/*","/welcome**").permitAll() // #4
+	       // .antMatchers("/admin","/admin/**").hasRole("ADMIN") // #6
+	       // .anyRequest().authenticated() // 7
 	        .and()
 	    .formLogin()  // #8
-	        .loginPage("/login/form") // #9
+	        .loginPage("/login/form.html") // #9
 	        .loginProcessingUrl("/loginprocess")
 	        .failureUrl("/login/form?error")
 	        .authenticationDetailsSource(authenticationDetailsSource)

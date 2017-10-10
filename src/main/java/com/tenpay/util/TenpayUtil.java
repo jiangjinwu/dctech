@@ -2,17 +2,23 @@ package com.tenpay.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 
 public class TenpayUtil {
 	
 	/**
-	 * °Ñ¶ÔÏó×ª»»³É×Ö·û´®
+	 * ï¿½Ñ¶ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 	 * @param obj
-	 * @return String ×ª»»³É×Ö·û´®,Èô¶ÔÏóÎªnull,Ôò·µ»Ø¿Õ×Ö·û´®.
+	 * @return String ×ªï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªnull,ï¿½ò·µ»Ø¿ï¿½ï¿½Ö·ï¿½ï¿½ï¿½.
 	 */
 	public static String toString(Object obj) {
 		if(obj == null)
@@ -22,11 +28,11 @@ public class TenpayUtil {
 	}
 	
 	/**
-	 * °Ñ¶ÔÏó×ª»»ÎªintÊýÖµ.
+	 * ï¿½Ñ¶ï¿½ï¿½ï¿½×ªï¿½ï¿½Îªintï¿½ï¿½Öµ.
 	 * 
 	 * @param obj
-	 *            °üº¬Êý×ÖµÄ¶ÔÏó.
-	 * @return int ×ª»»ºóµÄÊýÖµ,¶Ô²»ÄÜ×ª»»µÄ¶ÔÏó·µ»Ø0¡£
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄ¶ï¿½ï¿½ï¿½.
+	 * @return int ×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ,ï¿½Ô²ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ó·µ»ï¿½0ï¿½ï¿½
 	 */
 	public static int toInt(Object obj) {
 		int a = 0;
@@ -40,7 +46,7 @@ public class TenpayUtil {
 	}
 	
 	/**
-	 * »ñÈ¡µ±Ç°Ê±¼ä yyyyMMddHHmmss
+	 * ï¿½ï¿½È¡ï¿½ï¿½Ç°Ê±ï¿½ï¿½ yyyyMMddHHmmss
 	 * @return String
 	 */ 
 	public static String getCurrTime() {
@@ -51,7 +57,7 @@ public class TenpayUtil {
 	}
 	
 	/**
-	 * »ñÈ¡µ±Ç°ÈÕÆÚ yyyyMMdd
+	 * ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ yyyyMMdd
 	 * @param date
 	 * @return String
 	 */
@@ -62,11 +68,11 @@ public class TenpayUtil {
 	}
 	
 	/**
-	 * È¡³öÒ»¸öÖ¸¶¨³¤¶È´óÐ¡µÄËæ»úÕýÕûÊý.
+	 * È¡ï¿½ï¿½Ò»ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	 * 
 	 * @param length
-	 *            int Éè¶¨ËùÈ¡³öËæ»úÊýµÄ³¤¶È¡£lengthÐ¡ÓÚ11
-	 * @return int ·µ»ØÉú³ÉµÄËæ»úÊý¡£
+	 *            int ï¿½è¶¨ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½È¡ï¿½lengthÐ¡ï¿½ï¿½11
+	 * @return int ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public static int buildRandom(int length) {
 		int num = 1;
@@ -81,7 +87,7 @@ public class TenpayUtil {
 	}
 	
 	/**
-	 * »ñÈ¡±àÂë×Ö·û¼¯
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 	 * @param request
 	 * @param response
 	 * @return String
@@ -106,7 +112,7 @@ public class TenpayUtil {
 	}
 	
 	/**
-	 * »ñÈ¡unixÊ±¼ä£¬´Ó1970-01-01 00:00:00¿ªÊ¼µÄÃëÊý
+	 * ï¿½ï¿½È¡unixÊ±ï¿½ä£¬ï¿½ï¿½1970-01-01 00:00:00ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param date
 	 * @return long
 	 */
@@ -119,14 +125,42 @@ public class TenpayUtil {
 	}
 		
 	/**
-	 * Ê±¼ä×ª»»³É×Ö·û´®
-	 * @param date Ê±¼ä
-	 * @param formatType ¸ñÊ½»¯ÀàÐÍ
+	 * Ê±ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+	 * @param date Ê±ï¿½ï¿½
+	 * @param formatType ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @return String
 	 */
 	public static String date2String(Date date, String formatType) {
 		SimpleDateFormat sdf = new SimpleDateFormat(formatType);
 		return sdf.format(date);
 	}
+	
+	public static String createSign(String charset,String toPaySignString){
+		 Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+	        String result = encoder.encodePassword(toPaySignString, null);
+	        System.out.println(result);       
+	        String sign = result.toUpperCase();
+		return sign;
+	}
+	
+	public static String createSign(String characterEncoding,SortedMap<Object,Object> parameters){
+        StringBuffer sb = new StringBuffer();
+        Set es = parameters.entrySet();
+        Iterator it = es.iterator();
+        while(it.hasNext()) {
+            Map.Entry entry = (Map.Entry)it.next();
+            String k = (String)entry.getKey();
+            Object v = entry.getValue();
+            if(null != v && !"".equals(v) 
+                    && !"sign".equals(k) && !"key".equals(k)) {
+                sb.append(k + "=" + v + "&");
+            }
+        }
+        sb.append("key=" + ConstantUtil.APP_KEY);
+        
+        
+        String sign = MD5Util.MD5Encode(sb.toString(), characterEncoding).toUpperCase();
+        return sign;
+    }
 
 }

@@ -107,6 +107,7 @@
         </script>
         <div class="top-bg kz-b-c-t">
         </div>
+        <form action="/login.html">
         <div class="container js-g-container"><div class="js-login-container login" data-active="true">
     <div class="content">
         <img class="logo kz-b-c-t" src="./登录_files/wKjmqVg217mACcySAAAaSAtL0lg4302170">
@@ -129,8 +130,8 @@
                <img  src="${rootURL}common/verifyCode">
             </div>
         </div>
-
-        <button class="kz-b-c-t btn js-login g-text-28  js-login">登录</button>
+</form>
+        <button   class="kz-b-c-t btn js-login g-text-28  js-login">登录</button>
         <a class="g-color-blue g-text-24 to-regist js-to-register" href="http://passport.kuaizhan.com/main/login?callback=http%3A%2F%2Fdplus.kuaizhan.com%2Fshop%2Fcommodity%2F57ddf459959f942b304bb6b9&amp;wx_auto_jump=true#/register">注册账号&gt;</a>
         <a class="g-color-gray g-text-24 to-reset-pwd js-to-reset-pwd" href="http://passport.kuaizhan.com/main/login?callback=http%3A%2F%2Fdplus.kuaizhan.com%2Fshop%2Fcommodity%2F57ddf459959f942b304bb6b9&amp;wx_auto_jump=true#/pwd-reset">忘记密码?</a>
     </div>

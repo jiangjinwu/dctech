@@ -98,7 +98,7 @@ webpackJsonp([0], {
                         succCb: function(t) {
                             a.a.toast("修改成功"),
                             setTimeout(function() {
-                                window.router.setRoute("/login")
+                                window.router.setRoute("/login.html")
                             },
                             1e3)
                         },
@@ -155,7 +155,7 @@ webpackJsonp([0], {
                 i(".js-login-kz").on("click",
                 function(t) {
                     SOHUZ.loginChannel.cy = !0,
-                    window.router.setRoute("/login")
+                    window.router.setRoute("/login.html")
                 }),
                 i(".js-mobile").on("blur",
                 function(t) {
@@ -632,7 +632,7 @@ webpackJsonp([0], {
                                 cancel: "知道了",
                                 confirm: "去登录",
                                 confirmCb: function() {
-                                    window.router.setRoute("/login")
+                                    window.router.setRoute("/login.html")
                                 }
                             }) : t = !1
                         }
@@ -650,7 +650,7 @@ webpackJsonp([0], {
                         cancel: "知道了",
                         confirm: "去登录",
                         confirmCb: function() {
-                            window.router.setRoute("/login")
+                            window.router.setRoute("/login.html")
                         }
                     }) : void i.a.sendMobileCode({
                         data: {

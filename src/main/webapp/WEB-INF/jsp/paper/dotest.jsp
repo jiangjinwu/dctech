@@ -63,7 +63,7 @@
 				type:'POST',
 				contentType: "application/json",
 				 dataType:"json",  
-				url:'test/postAnswer.json',
+				url:'/test/postAnswer.json',
 				data:JSON.stringify(userAnswer),
 				success:function(data){
 					

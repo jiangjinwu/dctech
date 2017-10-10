@@ -16,13 +16,51 @@
     </encoder>
   </appender>
   
+  
+  
+    <appender name="rootHourlyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- hourly rollover -->
+            <FileNamePattern>d:\\log/dctech/sps-run.%d{yyyy-MM-dd_HH}.log</FileNamePattern>
+
+            <!-- keep 48 hours' worth of history -->
+            <maxHistory>48</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %X{req.remoteHost} %X{req.requestURI} %logger{36} - %msg %n
+            </Pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="payHourlyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- hourly rollover -->
+            <FileNamePattern>d:\\log/dctech/pay-run.%d{yyyy-MM-dd_HH}.log</FileNamePattern>
+
+            <!-- keep 48 hours' worth of history -->
+            <maxHistory>48</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %X{req.remoteHost} %X{req.requestURI} %logger{36} - %msg %n
+            </Pattern>
+        </encoder>
+    </appender>
+  
   <logger name="com.dctech">
     <appender-ref ref="STDOUT" />
-	<appender-ref ref="FILE" />
+	<appender-ref ref="rootHourlyRollingFileAppender" />
+  </logger>
+  
+  
+    <logger name="dctech.pay">
+    <appender-ref ref="STDOUT" />
+	<appender-ref ref="payHourlyRollingFileAppender" />
   </logger>
   
   <root level="debug">
     <appender-ref ref="STDOUT" />
-	<appender-ref ref="FILE" />
+	<appender-ref ref="rootHourlyRollingFileAppender" />
   </root>
 </configuration>

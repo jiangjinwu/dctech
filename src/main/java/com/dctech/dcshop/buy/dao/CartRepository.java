@@ -8,8 +8,8 @@ import com.dctech.dcshop.buy.model.Cart;
 
 public interface CartRepository extends PagingAndSortingRepository<Cart, Long> {
 
-	Cart getCartByAccountIdAndPaperId(Long paperId,Long AccountId);
+	Cart getCartByUserIdAndGoodsId(Long paperId,Long AccountId);
 	
 	
-	List<Cart> getCartByAccountId(Long AccountId);
+	List<Cart> getCartByUserId(Long AccountId);
 }

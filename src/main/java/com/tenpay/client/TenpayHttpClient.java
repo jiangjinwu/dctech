@@ -1,13 +1,11 @@
 package com.tenpay.client;
 
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -20,27 +18,42 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.ParseException;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.alibaba.fastjson.JSONObject;
 import com.tenpay.util.HttpClientUtil;
+import com.tenpay.util.JsonUtil;
 
 /**
- * �Ƹ�ͨhttp����https����ͨ�ſͻ���<br/>
+ * 锟狡革拷通http锟斤拷锟斤拷https锟斤拷锟斤拷通锟脚客伙拷锟斤拷<br/>
  * ========================================================================<br/>
- * api˵����<br/>
- * setReqContent($reqContent),�����������ݣ�����post��get������get��ʽ�ṩ<br/>
- * getResContent(), ��ȡӦ������<br/>
- * setMethod(method),�������󷽷�,post����get<br/>
- * getErrInfo(),��ȡ������Ϣ<br/>
- * setCertInfo(certFile, certPasswd),����֤�飬˫��httpsʱ��Ҫʹ��<br/>
- * setCaInfo(caFile), ����CA����ʽδpem���������򲻼��<br/>
- * setTimeOut(timeOut)�� ���ó�ʱʱ�䣬��λ��<br/>
- * getResponseCode(), ȡ���ص�http״̬��<br/>
- * call(),�������ýӿ�<br/>
- * getCharset()/setCharset(),�ַ�������<br/>
+ * api说锟斤拷锟斤拷<br/>
+ * setReqContent($reqContent),锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟捷ｏ拷锟斤拷锟斤拷post锟斤拷get锟斤拷锟斤拷锟斤拷get锟斤拷式锟结供<br/>
+ * getResContent(), 锟斤拷取应锟斤拷锟斤拷锟斤拷<br/>
+ * setMethod(method),锟斤拷锟斤拷锟斤拷锟襟方凤拷,post锟斤拷锟斤拷get<br/>
+ * getErrInfo(),锟斤拷取锟斤拷锟斤拷锟斤拷息<br/>
+ * setCertInfo(certFile, certPasswd),锟斤拷锟斤拷证锟介，双锟斤拷https时锟斤拷要使锟斤拷<br/>
+ * setCaInfo(caFile), 锟斤拷锟斤拷CA锟斤拷锟斤拷式未pem锟斤拷锟斤拷锟斤拷锟斤拷锟津不硷拷锟�<br/>
+ * setTimeOut(timeOut)锟斤拷 锟斤拷锟矫筹拷时时锟戒，锟斤拷位锟斤拷<br/>
+ * getResponseCode(), 取锟斤拷锟截碉拷http状态锟斤拷<br/>
+ * call(),锟斤拷锟斤拷锟斤拷锟矫接匡拷<br/>
+ * getCharset()/setCharset(),锟街凤拷锟斤拷锟斤拷锟斤拷<br/>
  * 
  * ========================================================================<br/>
  *
  */
 public class TenpayHttpClient {
+	
+	Logger logger = LoggerFactory.getLogger(TenpayHttpClient.class);
 	
 	private static final String USER_AGENT_VALUE = 
 		"Mozilla/4.0 (compatible; MSIE 6.0; Windows XP)";
@@ -52,34 +65,34 @@ public class TenpayHttpClient {
 	
 	private static final String JKS_CA_PASSWORD = "";
 	
-	/** ca֤���ļ� */
+	/** ca证锟斤拷锟侥硷拷 */
 	private File caFile;
 	
-	/** ֤���ļ� */
+	/** 证锟斤拷锟侥硷拷 */
 	private File certFile;
 	
-	/** ֤������ */
+	/** 证锟斤拷锟斤拷锟斤拷 */
 	private String certPasswd;
 	
-	/** �������ݣ�����post��get������get��ʽ�ṩ */
+	/** 锟斤拷锟斤拷锟斤拷锟捷ｏ拷锟斤拷锟斤拷post锟斤拷get锟斤拷锟斤拷锟斤拷get锟斤拷式锟结供 */
 	private String reqContent;
 	
-	/** Ӧ������ */
+	/** 应锟斤拷锟斤拷锟斤拷 */
 	private String resContent;
 	
-	/** ���󷽷� */
+	/** 锟斤拷锟襟方凤拷 */
 	private String method;
 	
-	/** ������Ϣ */
+	/** 锟斤拷锟斤拷锟斤拷息 */
 	private String errInfo;
 	
-	/** ��ʱʱ��,����Ϊ��λ */
+	/** 锟斤拷时时锟斤拷,锟斤拷锟斤拷为锟斤拷位 */
 	private int timeOut;
 	
-	/** httpӦ����� */
+	/** http应锟斤拷锟斤拷锟� */
 	private int responseCode;
 	
-	/** �ַ����� */
+	/** 锟街凤拷锟斤拷锟斤拷 */
 	private String charset;
 	
 	private InputStream inputStream;
@@ -93,18 +106,18 @@ public class TenpayHttpClient {
 		this.resContent = "";
 		this.method = "POST";
 		this.errInfo = "";
-		this.timeOut = 30;//30��
+		this.timeOut = 30;//30锟斤拷
 		
 		this.responseCode = 0;
-		this.charset = "GBK";
+		this.charset = "UTF-8";
 		
 		this.inputStream = null;
 	}
 
 	/**
-	 * ����֤����Ϣ
-	 * @param certFile ֤���ļ�
-	 * @param certPasswd ֤������
+	 * 锟斤拷锟斤拷证锟斤拷锟斤拷息
+	 * @param certFile 证锟斤拷锟侥硷拷
+	 * @param certPasswd 证锟斤拷锟斤拷锟斤拷
 	 */
 	public void setCertInfo(File certFile, String certPasswd) {
 		this.certFile = certFile;
@@ -112,7 +125,7 @@ public class TenpayHttpClient {
 	}
 	
 	/**
-	 * ����ca
+	 * 锟斤拷锟斤拷ca
 	 * @param caFile
 	 */
 	public void setCaInfo(File caFile) {
@@ -120,15 +133,15 @@ public class TenpayHttpClient {
 	}
 	
 	/**
-	 * ������������
-	 * @param reqContent ��������
+	 * 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	 * @param reqContent 锟斤拷锟斤拷锟斤拷锟斤拷
 	 */
 	public void setReqContent(String reqContent) {
 		this.reqContent = reqContent;
 	}
 	
 	/**
-	 * ��ȡ�������
+	 * 锟斤拷取锟斤拷锟斤拷锟斤拷锟�
 	 * @return String
 	 * @throws IOException 
 	 */
@@ -144,15 +157,15 @@ public class TenpayHttpClient {
 	}
 	
 	/**
-	 * �������󷽷�post����get
-	 * @param method ���󷽷�post/get
+	 * 锟斤拷锟斤拷锟斤拷锟襟方凤拷post锟斤拷锟斤拷get
+	 * @param method 锟斤拷锟襟方凤拷post/get
 	 */
 	public void setMethod(String method) {
 		this.method = method;
 	}
 	
 	/**
-	 * ��ȡ������Ϣ
+	 * 锟斤拷取锟斤拷锟斤拷锟斤拷息
 	 * @return String
 	 */
 	public String getErrInfo() {
@@ -160,15 +173,15 @@ public class TenpayHttpClient {
 	}
 	
 	/**
-	 * ���ó�ʱʱ��,����Ϊ��λ
-	 * @param timeOut ��ʱʱ��,����Ϊ��λ
+	 * 锟斤拷锟矫筹拷时时锟斤拷,锟斤拷锟斤拷为锟斤拷位
+	 * @param timeOut 锟斤拷时时锟斤拷,锟斤拷锟斤拷为锟斤拷位
 	 */
 	public void setTimeOut(int timeOut) {
 		this.timeOut = timeOut;
 	}
 	
 	/**
-	 * ��ȡhttp״̬��
+	 * 锟斤拷取http状态锟斤拷
 	 * @return int
 	 */
 	public int getResponseCode() {
@@ -176,7 +189,7 @@ public class TenpayHttpClient {
 	}
 	
 	/**
-	 * ִ��http���á�true:�ɹ� false:ʧ��
+	 * 执锟斤拷http锟斤拷锟矫★拷true:锟缴癸拷 false:失锟斤拷
 	 * @return boolean
 	 */
 	public boolean call() {
@@ -235,7 +248,7 @@ public class TenpayHttpClient {
 			KeyStoreException, NoSuchAlgorithmException,
 			UnrecoverableKeyException, KeyManagementException {
 
-		// caĿ¼
+		// ca目录
 		String caPath = this.caFile.getParent();
 
 		File jksCAFile = new File(caPath + "/"
@@ -260,7 +273,7 @@ public class TenpayHttpClient {
 		SSLContext sslContext = HttpClientUtil.getSSLContext(trustStream,
 				TenpayHttpClient.JKS_CA_PASSWORD, keyStream, this.certPasswd);
 		
-		//�ر���
+		//锟截憋拷锟斤拷
 		keyStream.close();
 		trustStream.close();
 		
@@ -292,7 +305,7 @@ public class TenpayHttpClient {
 	}
 	
 	/**
-	 * ��http post��ʽͨ��
+	 * 锟斤拷http post锟斤拷式通锟斤拷
 	 * @param url
 	 * @param postData
 	 * @throws IOException
@@ -306,7 +319,7 @@ public class TenpayHttpClient {
 	}
 	
 	/**
-	 * ��http get��ʽͨ��
+	 * 锟斤拷http get锟斤拷式通锟斤拷
 	 * 
 	 * @param url
 	 * @throws IOException
@@ -327,7 +340,7 @@ public class TenpayHttpClient {
 	}
 	
 	/**
-	 * ��https get��ʽͨ��
+	 * 锟斤拷https get锟斤拷式通锟斤拷
 	 * @param url
 	 * @param sslContext
 	 * @throws IOException
@@ -359,29 +372,29 @@ public class TenpayHttpClient {
 	}
 	
 	/**
-	 * ����http����Ĭ������
+	 * 锟斤拷锟斤拷http锟斤拷锟斤拷默锟斤拷锟斤拷锟斤拷
 	 * @param httpConnection
 	 */
 	protected void setHttpRequest(HttpURLConnection httpConnection) {
 		
-		//�������ӳ�ʱʱ��
+		//锟斤拷锟斤拷锟斤拷锟接筹拷时时锟斤拷
 		httpConnection.setConnectTimeout(this.timeOut * 1000);
 		
 		//User-Agent
 		httpConnection.setRequestProperty("User-Agent", 
 				TenpayHttpClient.USER_AGENT_VALUE);
 		
-		//��ʹ�û���
+		//锟斤拷使锟矫伙拷锟斤拷
 		httpConnection.setUseCaches(false);
 		
-		//�����������
+		//锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�
 		httpConnection.setDoInput(true);
 		httpConnection.setDoOutput(true);
 		
 	}
 	
 	/**
-	 * ����Ӧ��
+	 * 锟斤拷锟斤拷应锟斤拷
 	 * @throws IOException
 	 */
 	protected void doResponse() throws IOException {
@@ -390,16 +403,16 @@ public class TenpayHttpClient {
 			return;
 		}
 
-		//��ȡӦ������
+		//锟斤拷取应锟斤拷锟斤拷锟斤拷
 		this.resContent=HttpClientUtil.InputStreamTOString(this.inputStream,this.charset); 
 
-		//�ر�������
+		//锟截憋拷锟斤拷锟斤拷锟斤拷
 		this.inputStream.close();
 		
 	}
 	
 	/**
-	 * post��ʽ����
+	 * post锟斤拷式锟斤拷锟斤拷
 	 * @param conn
 	 * @param postData
 	 * @throws IOException
@@ -407,10 +420,10 @@ public class TenpayHttpClient {
 	protected void doPost(HttpURLConnection conn, byte[] postData)
 			throws IOException {
 
-		// ��post��ʽͨ��
+		// 锟斤拷post锟斤拷式通锟斤拷
 		conn.setRequestMethod("POST");
 
-		// ��������Ĭ������
+		// 锟斤拷锟斤拷锟斤拷锟斤拷默锟斤拷锟斤拷锟斤拷
 		this.setHttpRequest(conn);
 
 		// Content-Type
@@ -423,36 +436,97 @@ public class TenpayHttpClient {
 		final int len = 1024; // 1KB
 		HttpClientUtil.doOutput(out, postData, len);
 
-		// �ر���
+		// 锟截憋拷锟斤拷
 		out.close();
 
-		// ��ȡ��Ӧ����״̬��
+		// 锟斤拷取锟斤拷应锟斤拷锟斤拷状态锟斤拷
 		this.responseCode = conn.getResponseCode();
 
-		// ��ȡӦ��������
+		// 锟斤拷取应锟斤拷锟斤拷锟斤拷锟斤拷
 		this.inputStream = conn.getInputStream();
 
 	}
 	
 	/**
-	 * get��ʽ����
+	 * get锟斤拷式锟斤拷锟斤拷
 	 * @param conn
 	 * @throws IOException
 	 */
 	protected void doGet(HttpURLConnection conn) throws IOException {
 		
-		//��GET��ʽͨ��
+		//锟斤拷GET锟斤拷式通锟斤拷
 		conn.setRequestMethod("GET");
 		
-		//��������Ĭ������
+		//锟斤拷锟斤拷锟斤拷锟斤拷默锟斤拷锟斤拷锟斤拷
 		this.setHttpRequest(conn);
 		
-		//��ȡ��Ӧ����״̬��
+		//锟斤拷取锟斤拷应锟斤拷锟斤拷状态锟斤拷
 		this.responseCode = conn.getResponseCode();
 		
-		//��ȡӦ��������
+		//锟斤拷取应锟斤拷锟斤拷锟斤拷锟斤拷
 		this.inputStream = conn.getInputStream();
 	}
-
 	
+	public String getCode(String code){
+        String getTokenUrl="https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code";
+		getTokenUrl = String.format(getTokenUrl, "wxc2ebb593810968f2","a37ab8c87f4228d4f16426aa757fe6e3",code);
+		this.call();
+		String openId = JsonUtil.getJsonValue(resContent, "openId");
+		return openId;
+	}
+	
+	public String getOpenId(String code){
+        String getTokenUrl="https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code";
+		getTokenUrl = String.format(getTokenUrl, "wxc2ebb593810968f2","a37ab8c87f4228d4f16426aa757fe6e3",code);
+		JSONObject obj = callGet(getTokenUrl);
+	
+		return 	obj.getString("openid");
+	}
+	
+	
+	public JSONObject callGet(String getTokenUrl){
+		 String content ="";
+		 JSONObject obj=null;
+		 CloseableHttpClient httpclient = HttpClients.createDefault();  
+	        try {  
+	            // 创建httpget.    
+	            HttpGet httpget = new HttpGet(getTokenUrl);  
+	            System.out.println("executing request " + httpget.getURI());  
+	            // 执行get请求.    
+	            CloseableHttpResponse response = httpclient.execute(httpget);  
+	            try {  
+	                // 获取响应实体    
+	            	 HttpEntity      entity = response.getEntity();  
+	                System.out.println("--------------------------------------");  
+	                // 打印响应状态    
+	                System.out.println(response.getStatusLine());  
+	                if (entity != null) {  
+	                    // 打印响应内容长度    
+	                    System.out.println("Response content length: " + entity.getContentLength());  
+	                    // 打印响应内容    
+	                    content= EntityUtils.toString(entity);
+	                    
+	                    obj=  JSONObject.parseObject(content);
+	                   
+	                }  
+	                System.out.println("------------------------------------");  
+	            } finally {  
+	                response.close();  
+	            }  
+	        } catch (ClientProtocolException e) {  
+	            e.printStackTrace();  
+	        } catch (ParseException e) {  
+	            e.printStackTrace();  
+	        } catch (IOException e) {  
+	            e.printStackTrace();  
+	        } finally {  
+	            // 关闭连接,释放资源    
+	            try {  
+	                httpclient.close();  
+	            } catch (IOException e) {  
+	                e.printStackTrace();  
+	            }  
+	        }  
+	        return obj;
+	}
 }

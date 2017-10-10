@@ -72,14 +72,14 @@
 <tbody>
 <c:forEach var="user" items="${paperList}">
               <tr  th:each="user: ${paperList}">  
-                <td th:text="${user.paperName}">${user.paperName}</td>  
-                <td th:text="${user.paperPrice}">${user.paperPrice}</td>  
-                <td th:text="${user.paperUid}">${user.paperUid}</td>  
+                <td >${user.name}</td>  
+                <td >${user.price}</td>  
+                <td>${user.paperUid}</td>  
                  <td >
-                 <a  href="editPaper.html?paperId=${user.paperId}" class="btn btn-xs btn-default"><i class="fa fa-edit"></i></a>
-                 <a  href="editQuOp.html?paperId=${user.paperId}" class="btn btn-xs btn-default"><i class="fa fa-plus">editQuestion</i></a>
+                 <a  href="editPaper.html?paperId=${user.id}" class="btn btn-xs btn-default"><i class="fa fa-edit"></i></a>
+                 <a  href="editQuOp.html?paperId=${user.id}" class="btn btn-xs btn-default"><i class="fa fa-plus">editQuestion</i></a>
                  
-                  <a href="viewPaper.html?paperId=${user.paperId}" class="btn btn-xs btn-default"><i class="fa fa-dot-circle-o">view</i></a>
+                  <a href="viewPaper.html?paperId=${user.id}" class="btn btn-xs btn-default"><i class="fa fa-dot-circle-o">view</i></a>
                  
                  
                  </td>  

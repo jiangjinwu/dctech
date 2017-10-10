@@ -85,7 +85,7 @@ public class PaperController {
 			@Override
 			   public Predicate toPredicate(Root<Paper> root,  
 			    CriteriaQuery<?> query, CriteriaBuilder cb) {  
-			    Path<String> namePath = root.get("paperName");
+			    Path<String> namePath = root.get("name");
 			   
 			   /* query.where(cb.like(namePath, "%111%"));*/ //杩欓噷鍙互璁剧疆浠绘剰鏉℃煡璇㈡潯浠�  
 			     

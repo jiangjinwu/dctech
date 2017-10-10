@@ -5,6 +5,7 @@ package com.dctech.base.web.config;
 
 import javax.servlet.Filter;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
@@ -16,6 +17,8 @@ import com.dctech.base.config.AppConfig;
  * @author Siva
  *
  */
+
+@Order(1)
 public class SpringWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer
 {
 

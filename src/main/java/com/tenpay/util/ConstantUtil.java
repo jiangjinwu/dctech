@@ -2,25 +2,49 @@ package com.tenpay.util;
 
 public class ConstantUtil {
 	/**
-	 * ÉÌ¼Ò¿ÉÒÔ¿¼ÂÇ¶ÁÈ¡ÅäÖÃÎÄ¼þ
+	 * ï¿½Ì¼Ò¿ï¿½ï¿½Ô¿ï¿½ï¿½Ç¶ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 	 */
 	
-	//³õÊ¼»¯
-	public static String APP_ID = "wxd930ea5d5a258f4f";//Î¢ÐÅ¿ª·¢Æ½Ì¨Ó¦ÓÃid
-	public static String APP_SECRET = "db426a9829e4b49a0dcac7b4162da6b6";//Ó¦ÓÃ¶ÔÓ¦µÄÆ¾Ö¤
-	//Ó¦ÓÃ¶ÔÓ¦µÄÃÜÔ¿
+	//ï¿½ï¿½Ê¼ï¿½ï¿½
+/*	public static String APP_ID = "wxc2ebb593810968f2";//Î¢ï¿½Å¿ï¿½ï¿½ï¿½Æ½Ì¨Ó¦ï¿½ï¿½id
+	public static String APP_SECRET = "a37ab8c87f4228d4f16426aa757fe6e3";//Ó¦ï¿½Ã¶ï¿½Ó¦ï¿½ï¿½Æ¾Ö¤
+	//Ó¦ï¿½Ã¶ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ô¿
 	public static String APP_KEY = "L8LrMqqeGRxST5reouB0K66CaYAWpqhAVsq7ggKkxHCOastWksvuX1uvmvQclxaHoYd3ElNBrNO2DHnnzgfVG9Qs473M3DTOZug5er46FhuGofumV8H2FVR9qkjSlC5K";
-	public static String PARTNER = "1900000109";//²Æ¸¶Í¨ÉÌ»§ºÅ
-	public static String PARTNER_KEY = "8934e7d15453e97507ef794cf7b0519d";//ÉÌ»§ºÅ¶ÔÓ¦µÄÃÜÔ¿
-	public static String TOKENURL = "https://api.weixin.qq.com/cgi-bin/token";//»ñÈ¡access_token¶ÔÓ¦µÄurl
-	public static String GRANT_TYPE = "client_credential";//³£Á¿¹Ì¶¨Öµ 
-	public static String EXPIRE_ERRCODE = "42001";//access_tokenÊ§Ð§ºóÇëÇó·µ»ØµÄerrcode
-	public static String FAIL_ERRCODE = "40001";//ÖØ¸´»ñÈ¡µ¼ÖÂÉÏÒ»´Î»ñÈ¡µÄaccess_tokenÊ§Ð§,·µ»Ø´íÎóÂë
-	public static String GATEURL = "https://api.weixin.qq.com/pay/genprepay?access_token=";//»ñÈ¡Ô¤Ö§¸¶idµÄ½Ó¿Úurl
-	public static String ACCESS_TOKEN = "access_token";//access_token³£Á¿Öµ
-	public static String ERRORCODE = "errcode";//ÓÃÀ´ÅÐ¶Ïaccess_tokenÊÇ·ñÊ§Ð§µÄÖµ
-	public static String SIGN_METHOD = "sha1";//Ç©ÃûËã·¨³£Á¿Öµ
-	//package³£Á¿Öµ
+	public static String PARTNER = "1900000109";//ï¿½Æ¸ï¿½Í¨ï¿½Ì»ï¿½ï¿½ï¿½
+	public static String PARTNER_KEY = "8934e7d15453e97507ef794cf7b0519d";//ï¿½Ì»ï¿½ï¿½Å¶ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ô¿
+	public static String TOKENURL = "https://api.weixin.qq.com/cgi-bin/token";//ï¿½ï¿½È¡access_tokenï¿½ï¿½Ó¦ï¿½ï¿½url
+	public static String GRANT_TYPE = "client_credential";//ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½Öµ 
+	public static String EXPIRE_ERRCODE = "42001";//access_tokenÊ§Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»Øµï¿½errcode
+	public static String FAIL_ERRCODE = "40001";//ï¿½Ø¸ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î»ï¿½È¡ï¿½ï¿½access_tokenÊ§Ð§,ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½
+	public static String GATEURL = "https://api.weixin.qq.com/pay/genprepay?access_token=";//ï¿½ï¿½È¡Ô¤Ö§ï¿½ï¿½idï¿½Ä½Ó¿ï¿½url
+	public static String ACCESS_TOKEN = "access_token";//access_tokenï¿½ï¿½ï¿½ï¿½Öµ
+	public static String ERRORCODE = "errcode";//ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½access_tokenï¿½Ç·ï¿½Ê§Ð§ï¿½ï¿½Öµ
+	public static String SIGN_METHOD = "sha1";//Ç©ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½Öµ
+	//packageï¿½ï¿½ï¿½ï¿½Öµ
 	public static String packageValue = "bank_type=WX&body=%B2%E2%CA%D4&fee_type=1&input_charset=GBK&notify_url=http%3A%2F%2F127.0.0.1%3A8180%2Ftenpay_api_b2c%2FpayNotifyUrl.jsp&out_trade_no=2051571832&partner=1900000109&sign=10DA99BCB3F63EF23E4981B331B0A3EF&spbill_create_ip=127.0.0.1&time_expire=20131222091010&total_fee=1";
-	public static String traceid = "testtraceid001";//²âÊÔÓÃ»§id
+	public static String traceid = "testtraceid001";//ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½id
+	*/
+	
+	// nrgswgw
+	public static String APP_ID = "wxc2ebb593810968f2";//Î¢ï¿½Å¿ï¿½ï¿½ï¿½Æ½Ì¨Ó¦ï¿½ï¿½id
+	public static String APP_SECRET = "a37ab8c87f4228d4f16426aa757fe6e3";//Ó¦ï¿½Ã¶ï¿½Ó¦ï¿½ï¿½Æ¾Ö¤
+	//Ó¦ï¿½Ã¶ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ô¿
+	public static String APP_KEY = "nrgswgwNrgswgwnrgswgwNrgswgw1234";
+	public static String PARTNER = "1358293402";//ï¿½Æ¸ï¿½Í¨ï¿½Ì»ï¿½ï¿½ï¿½
+	
+	
+	
+	
+	public static String PARTNER_KEY = "8934e7d15453e97507ef794cf7b0519d";//ï¿½Ì»ï¿½ï¿½Å¶ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ô¿
+	public static String TOKENURL = "https://api.weixin.qq.com/cgi-bin/token";//ï¿½ï¿½È¡access_tokenï¿½ï¿½Ó¦ï¿½ï¿½url
+	public static String GRANT_TYPE = "client_credential";//ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½Öµ 
+	public static String EXPIRE_ERRCODE = "42001";//access_tokenÊ§Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»Øµï¿½errcode
+	public static String FAIL_ERRCODE = "40001";//ï¿½Ø¸ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î»ï¿½È¡ï¿½ï¿½access_tokenÊ§Ð§,ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½
+	public static String GATEURL = "https://api.mch.weixin.qq.com/pay/unifiedorder";//ï¿½ï¿½È¡Ô¤Ö§ï¿½ï¿½idï¿½Ä½Ó¿ï¿½url
+	public static String ACCESS_TOKEN = "access_token";//access_tokenï¿½ï¿½ï¿½ï¿½Öµ
+	public static String ERRORCODE = "errcode";//ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½access_tokenï¿½Ç·ï¿½Ê§Ð§ï¿½ï¿½Öµ
+	public static String SIGN_METHOD = "sha1";//Ç©ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½Öµ
+	//packageï¿½ï¿½ï¿½ï¿½Öµ
+	public static String packageValue = "bank_type=WX&body=%B2%E2%CA%D4&fee_type=1&input_charset=GBK&notify_url=http%3A%2F%2F127.0.0.1%3A8180%2Ftenpay_api_b2c%2FpayNotifyUrl.jsp&out_trade_no=2051571832&partner=1900000109&sign=10DA99BCB3F63EF23E4981B331B0A3EF&spbill_create_ip=127.0.0.1&time_expire=20131222091010&total_fee=1";
+	public static String traceid = "testtraceid001";//ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½id
 }

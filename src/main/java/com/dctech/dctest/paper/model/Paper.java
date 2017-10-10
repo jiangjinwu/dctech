@@ -1,36 +1,30 @@
 package com.dctech.dctest.paper.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
+
+import com.dctech.dcshop.buy.model.Goods;
 
 @Entity
-public class Paper  {
+@PrimaryKeyJoinColumn(name="id")
+public class Paper extends Goods {
 
 
-	Long paperId;
-	String paperName;
+	/*Long paperId;*/
 	String paperNo;
 	Long paperCtime;
 	Long paperUid;
-	Float paperPrice;
 	Integer expireDayCount;
 	
-	@Id	
+	/*@Id	
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public Long getPaperId() {
 		return paperId;
 	}
 	public void setPaperId(Long paperId) {
 		this.paperId = paperId;
-	}
-	public String getPaperName() {
-		return paperName;
-	}
-	public void setPaperName(String paperName) {
-		this.paperName = paperName;
-	}
+	}*/
+	 
 	public Long getPaperCtime() {
 		return paperCtime;
 	}
@@ -44,12 +38,7 @@ public class Paper  {
 		this.paperUid = papeUid;
 	}
 	
-	public Float getPaperPrice() {
-		return paperPrice;
-	}
-	public void setPaperPrice(Float paperPrice) {
-		this.paperPrice = paperPrice;
-	}
+	 
 	
 	
 	public String getPaperNo() {

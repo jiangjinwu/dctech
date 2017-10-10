@@ -23,7 +23,7 @@
 												  <div class="form-group">
 													<label class="col-sm-3 control-label">试卷名称：</label>
 													<div class="col-sm-9">
-													  <input class="form-control"  name="paperName"></input>
+													  <input class="form-control"  name="name"></input>
 													</div>
 												  </div>
 												   <div class="form-group">
@@ -35,7 +35,7 @@
 												  <div class="form-group">
 													<label class="col-sm-3 control-label">价格：</label>
 													<div class="col-sm-9">
-													<input class="form-control"  name="paperPrice"></input>
+													<input class="form-control"  name="price"></input>
 													</div>
 												  </div>
 									

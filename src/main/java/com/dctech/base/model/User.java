@@ -5,6 +5,7 @@ package com.dctech.base.model;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,6 +18,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.dctech.dcshop.buy.model.OrderInfo;
 
 /**
  * @author katsi02
@@ -35,7 +39,9 @@ public class User
 	private String password;
 	private Date dob;
 	private String phone;
+	private String openId;
 	
+	private List<OrderInfo> orders;
 
 	private Set<Role> roles = new HashSet<>();
 	
@@ -114,6 +120,23 @@ public class User
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
+
+	@Transient
+	public List<OrderInfo> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<OrderInfo> orders) {
+		this.orders = orders;
 	}
 	
 }

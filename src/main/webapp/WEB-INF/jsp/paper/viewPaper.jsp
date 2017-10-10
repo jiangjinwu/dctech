@@ -24,19 +24,19 @@
 					  <div class="form-group">
 						<label class="col-sm-3 control-label">试卷名称：</label>
 						<div class="col-sm-9">
-						  <input class="form-control" th:value="${paper.paperName}" name="paperName"></input>
+						  <input class="form-control" value="${paper.name}" name="paperName"></input>
 						</div>
 					  </div>
 					   <div class="form-group">
 						<label class="col-sm-3 control-label">编号：</label>
 						<div class="col-sm-9">
-						<input class="form-control" th:value="${paper.paperNo}" name="paperNo"></input>
+						<input class="form-control" value="${paper.paperNo}" name="paperNo"></input>
 						</div>
 					  </div>
 					  <div class="form-group">
 						<label class="col-sm-3 control-label">价格：</label>
 						<div class="col-sm-9">
-						<input class="form-control" th:value="${paper.paperPrice}" name="paperPrice"></input>
+						<input class="form-control" value="${paper.price}" name="price"></input>
 						</div>
 					  </div>
 		

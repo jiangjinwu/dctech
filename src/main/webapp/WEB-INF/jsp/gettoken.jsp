@@ -9,7 +9,7 @@
 </head>
 <body>
 
-
+${openId }
 <script type="text/javascript">
 
 /* 

@@ -8,17 +8,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.dctech.base.model.AccountInfo;
+import com.dctech.base.model.User;
 import com.dctech.dctest.paper.model.Paper;
 
 @Entity
 public class Cart {
 
 	Long cartId;
-	Paper paper;
-	Long paperId;
-	AccountInfo accountInfo;
+	Goods goods;
+	/*Long paperId;*/
+	User user;
 	Integer buyNum;
-	Long accountId;
+
 	
 	@Id
 	@GeneratedValue
@@ -29,41 +30,37 @@ public class Cart {
 		this.cartId = cartId;
 	}
 	
-	public Long getPaperId() {
+	/*public Long getPaperId() {
 		return paperId;
 	}
 	public void setPaperId(Long paperId) {
 		this.paperId = paperId;
-	}
+	}*/
 	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name="paperId",insertable=false,updatable=false)
-	public Paper getPaper() {
-		return paper;
+	@JoinColumn(name="goodsId",insertable=true,updatable=false)
+	public Goods getGoods() {
+		return goods;
 	}
-	public void setPaper(Paper paper) {
-		this.paper = paper;
+	public void setGoods(Goods paper) {
+		this.goods = paper;
 	}
 	
 	
-	public Long getAccountId() {
-		return accountId;
-	}
-	public void setAccountId(Long accountId) {
-		this.accountId = accountId;
-	}
+
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name="accountId",insertable=false,updatable=false)
-	public AccountInfo getAccountInfo() {
-		return accountInfo;
+	@JoinColumn(name="userId",insertable=true,updatable=false)
+	public User getUser() {
+		return user;
 	}
-	public void setAccountInfo(AccountInfo accountInfo) {
-		this.accountInfo = accountInfo;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	public Integer getBuyNum() {
 		return buyNum;
 	}
+	
 	public void setBuyNum(Integer buyNum) {
 		this.buyNum = buyNum;
 	}

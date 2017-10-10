@@ -237,8 +237,10 @@ webpackJsonp([10], {
                 })
             },
             login: function(n) {
+            	
+            	console.info(n);
                 e.ajax({
-                    url: "/login",
+                    url: "/login.html",
                     type: "POST",
                     data: n.data,
                     success: n.succCb ||
